@@ -31,6 +31,13 @@ class FlagColor(QtGui.QWidget):
 
         random.clicked[bool].connect(self.setColor)
         
+        combo = QtGui.QComboBox(self)
+        with open('countries_list.txt', 'r') as infile: #open file
+		for x in infile: #takes every line from the file
+			x = x.rstrip('\n')
+			combo.addItem(x)
+			combo.move(70, 220)
+        
         self.square = QtGui.QFrame(self)
         self.square.setGeometry(150, 100, 100, 100)
         self.square.setStyleSheet("QWidget { background-color: %s }" % self.col.name())
