@@ -25,18 +25,15 @@ class FlagColor(QtGui.QWidget):
         
         self.col = QtGui.QColor(0, 0, 0)  
         
-        random = QtGui.QPushButton('Random', self)
-        random.setCheckable(True)
-        random.move(10, 10)
-
-        random.clicked[bool].connect(self.setColor)
         
         combo = QtGui.QComboBox(self)
-        with open('countries_list.txt', 'r') as infile: #open file
-		for x in infile: #takes every line from the file
-			x = x.rstrip('\n')
-			combo.addItem(x)
-			combo.move(70, 220)
+        
+        infile = open("countries_list.txt","r")
+        for i in infile:
+            combo.addItem(i)
+        combo.move(100,50)
+        combo.activated[str].connect(self.setColor) 
+        
         
         self.square = QtGui.QFrame(self)
         self.square.setGeometry(150, 100, 100, 100)
@@ -51,10 +48,10 @@ class FlagColor(QtGui.QWidget):
         val, val1, val2 = randrange(0,255), randrange(0,255), randrange(0,255)
         
                         
-        if source.text() == "Random":
-            self.col.setRed(val)
-            self.col.setBlue(val1)
-            self.col.setGreen(val2)
+        
+        self.col.setRed(val)
+        self.col.setBlue(val1)
+        self.col.setGreen(val2)
             
         self.square.setStyleSheet("QFrame { background-color: %s }" %
                     self.col.name())
